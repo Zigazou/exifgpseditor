@@ -12,6 +12,8 @@ by Exiv2 (though the preview is limited to file formats supported by GTK 3).
 
 This means you can modify GPS coordinates for JPG, TIFF, RAW, etc.
 
+![Exif GPS Editor screenshot](doc/exifgpseditor01.png)
+
 Requirements
 ------------
 
