@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glade-catalog name="OSMGPSMap" library="libosmgpsmap-1.0.so.0" depends="gtk+">
+  <glade-widget-classes>
+    <glade-widget-class name="OsmGpsMap" generic-name="osmgpsmap" title="OSM GPS Map"/>
+  </glade-widget-classes>
+
+  <glade-widget-group name="map-widgets" title="Map widgets">
+    <glade-widget-class-ref name="OsmGpsMap"/>
+  </glade-widget-group>
+</glade-catalog>
