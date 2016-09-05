@@ -11,6 +11,8 @@ from re import search
 from sys import argv
 from os.path import expanduser, isfile
 
+from time import sleep
+
 GObject.threads_init()
 Gdk.threads_init()
 GObject.type_register(OsmGpsMap.Map)
@@ -83,6 +85,7 @@ class ExifGpsEditor:
         handlers = {
             "quit": (lambda _: Gtk.main_quit()),
             "apply": (lambda _: self.save_image()),
+            "redraw": (lambda _: self.move_to(None)),
             "origin": (lambda _: self.move_to(self.original_position)),
             "previous": (lambda _: self.move_to(self.config.previous_position))
         }
@@ -107,7 +110,12 @@ class ExifGpsEditor:
         self.win_exifgpseditor.show_all()
 
     def move_to(self, position):
-        (lat, lon) = position
+        if position is None:
+            lat = self.themap.props.latitude
+            lon = self.themap.props.longitude
+        else:
+            (lat, lon) = position
+
         self.themap.set_center(lat, lon)
 
     def load_image(self, filename):

@@ -10,6 +10,7 @@
     <property name="default_height">800</property>
     <property name="icon">exifgpseditor_icon.png</property>
     <property name="has_resize_grip">True</property>
+    <signal name="check-resize" handler="redraw" swapped="no"/>
     <child>
       <object class="GtkBox" id="box_main">
         <property name="visible">True</property>
@@ -37,6 +38,8 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkImage" id="img_preview">
+                <property name="width_request">160</property>
+                <property name="height_request">100</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="stock">gtk-missing-image</property>
