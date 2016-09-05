@@ -25,16 +25,21 @@ The following libraries must be installed:
 - python-gi-cairo
 - gir1.2-gexiv2-0.10
 
+Bugs
+----
+
+There is an annoying bug on image opening: the position is not the right one
+(though not far away from the exact position). Just click on the
+"Original value" button for the moment.
+
 TODO
 ----
 
-Create an installer
-Be more compliant with Python standards for application delivery
+- Create an installer
+- Be more compliant with Python standards for application delivery
 
 Developers
 ----------
 
 In order to modify the Glade file, you should add the osmgsmmap-catalog.xml in
 a directory accessible to Glade.
-
-
