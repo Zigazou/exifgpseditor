@@ -14,7 +14,7 @@ with open(join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='exifgpseditor',
-    version='1.0.0a1',
+    version='1.0.0a2',
     description='An Exif GPS Editor',
     long_description=long_description,
     url='https://github.com/Zigazou/exifgpseditor',
