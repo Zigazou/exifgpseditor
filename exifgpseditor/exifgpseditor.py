@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 
 from gi import require_version
-require_version('Gtk', '3.0')
-require_version('GExiv2', '0.10')
-require_version('OsmGpsMap', '1.0')
-
 from configparser import ConfigParser
 from gi.repository import Gtk, Gdk, GdkPixbuf, GObject, GExiv2, OsmGpsMap
 from re import search
 from sys import argv
 from os.path import expanduser, isfile, join, dirname, abspath
+
+require_version('Gtk', '3.0')
+require_version('GExiv2', '0.10')
+require_version('OsmGpsMap', '1.0')
 
 GObject.threads_init()
 Gdk.threads_init()
@@ -17,8 +17,8 @@ GObject.type_register(OsmGpsMap.Map)
 
 def get_resource(filename):
     resources = [
-        join(abspath(dirname(__file__)), filename),
-        join(expanduser("~"), ".share", "exifgpseditor", filename),
+        abspath(join(dirname(__file__), filename)),
+        expanduser(join("~", ".share", "exifgpseditor", filename)),
         join("/usr/local/share/exifgpseditor", filename),
         join("/usr/share/exifgpseditor", filename)
     ]
@@ -26,7 +26,7 @@ def get_resource(filename):
     return next((res for res in resources if isfile(res)), None)
 
 def get_config(filename):
-    return join(expanduser("~"), "/.config/", filename)
+    return expanduser(join("~", ".config", filename))
 
 class Configuration:
     def __init__(self, filename):
@@ -62,7 +62,7 @@ def gps_str2float(value):
 
     dms = search(r'^(\d+)/(\d+) (\d+)/(\d+) (\d+)/(\d+)$', value)
 
-    try:    
+    try:
         (vd, dd, vm, dm, vs, ds) = dms.group(1, 2, 3, 4, 5, 6)
         d = float(vd) / float(dd)
         m = float(vm) / float(dm)
@@ -100,7 +100,7 @@ class ExifGpsEditor:
             "origin": (lambda _: self.move_to(self.original_position)),
             "previous": (lambda _: self.move_to(self.config.previous_position))
         }
-        builder.connect_signals(handlers)		
+        builder.connect_signals(handlers)
 
         # Get the Main Window, and connect the "destroy" event
         self.win_exifgpseditor = builder.get_object("win_exifgpseditor")
@@ -180,5 +180,5 @@ def run():
 
     config.save()
 
-if __name__ == '__main__' :
+if __name__ == '__main__':
     run()
