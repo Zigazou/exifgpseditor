@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""An Exif GPS editor
-
-"""
+"""An Exif GPS editor"""
 
 from setuptools import setup, find_packages
 from codecs import open
