@@ -9,19 +9,30 @@ from configparser import ConfigParser
 from gi.repository import Gtk, Gdk, GdkPixbuf, GObject, GExiv2, OsmGpsMap
 from re import search
 from sys import argv
-from os.path import expanduser, isfile
-
-from time import sleep
+from os.path import expanduser, isfile, join, dirname, abspath
 
 GObject.threads_init()
 Gdk.threads_init()
 GObject.type_register(OsmGpsMap.Map)
 
+def get_resource(filename):
+    resources = [
+        join(abspath(dirname(__file__)), filename),
+        join(expanduser("~"), ".share", "exifgpseditor", filename),
+        join("/usr/local/share/exifgpseditor", filename),
+        join("/usr/share/exifgpseditor", filename)
+    ]
+
+    return next((res for res in resources if isfile(res)), None)
+
+def get_config(filename):
+    return join(expanduser("~"), "/.config/", filename)
+
 class Configuration:
     def __init__(self, filename):
         assert isinstance(filename, str)
 
-        self._filename = expanduser("~") + "/.config/" + filename
+        self._filename = get_config(filename)
         self._config = ConfigParser()
 
         self._config['DEFAULT'] = {
@@ -80,7 +91,7 @@ class ExifGpsEditor:
 
         # Set the Glade file
         builder = Gtk.Builder()
-        builder.add_from_file("exifgpseditor.glade")
+        builder.add_from_file(get_resource("exifgpseditor.glade"))
 
         handlers = {
             "quit": (lambda _: Gtk.main_quit()),
@@ -152,7 +163,7 @@ def exit_with_error(message, rc):
 
     exit(rc)
 
-if __name__ == "__main__":
+def run():
     if len(argv) < 2:
         exit_with_error("No file!", 1)
 
@@ -169,3 +180,5 @@ if __name__ == "__main__":
 
     config.save()
 
+if __name__ == '__main__' :
+    run()

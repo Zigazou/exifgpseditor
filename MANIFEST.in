@@ -1,0 +1,4 @@
+include dev/osmgpsmap-catalog.xml
+include exifgpseditor/exifgpseditor.glade
+include exifgpseditor/exifgpseditor_icon.png
+
