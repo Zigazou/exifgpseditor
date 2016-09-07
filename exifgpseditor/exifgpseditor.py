@@ -180,10 +180,13 @@ class ExifGpsEditor:
         """
         self.meta = GExiv2.Metadata(filename)
 
-        self.original_position = (
-            gps_str2float(self.meta['Exif.GPSInfo.GPSLatitude']),
-            gps_str2float(self.meta['Exif.GPSInfo.GPSLongitude'])
-        )
+        try:
+            self.original_position = (
+                gps_str2float(self.meta['Exif.GPSInfo.GPSLatitude']),
+                gps_str2float(self.meta['Exif.GPSInfo.GPSLongitude'])
+            )
+        except KeyError:
+            self.original_position = (0.0, 0.0)
 
         self.move_to(self.original_position)
 
